@@ -3,13 +3,7 @@ import os
 
 app = Flask(__name__)
 
-# Recreate history file at the start of each session
-HISTORY_FILE = "game_history.txt"
-if os.path.exists(HISTORY_FILE):
-    os.remove(HISTORY_FILE)
-
-with open(HISTORY_FILE, "w") as f:
-    f.write("Game History\n-----------------\n")
+l=[]
 
 @app.route('/')
 def index():
@@ -35,31 +29,23 @@ def save_game():
     grid_size = request.form.get('grid_size')
     moves = request.form.get('moves')
     time = request.form.get('time')  # Time taken to solve in seconds
-
-    with open(HISTORY_FILE, "a") as f:
-        f.write(f"Username: {username}, Grid: {grid_size}, Moves: {moves}, Time: {time} seconds\n")
+    d = {"Username" : username,
+        "Grid" : grid_size,
+        "Moves" : moves,
+        "Time" : time}
+    l.append(d)
     return "Game saved", 200
 
 def get_best_results():
-    """Reads the history file and returns the best score (moves) and shortest time."""
-    if not os.path.exists(HISTORY_FILE):
+    if len(l)==0:
         return "N/A", "N/A"
 
     best_score = float('inf')
     shortest_time = float('inf')
 
-    with open(HISTORY_FILE, "r") as f:
-        lines = f.readlines()
-        for line in lines:
-            if "Moves" in line and "Time" in line:
-                try:
-                    moves = int(line.split("Moves: ")[1].split(",")[0].strip())
-                    time = float(line.split("Time: ")[1].split(" ")[0].strip())
-
-                    best_score = min(best_score, moves)
-                    shortest_time = min(shortest_time, time)
-                except ValueError:
-                    continue
+    for x in l:
+        best_score = min(best_score, int(x["Moves"]))
+        shortest_time = min(shortest_time, int(x["Time"]))
 
     best_score = best_score if best_score != float('inf') else "N/A"
     shortest_time = shortest_time if shortest_time != float('inf') else "N/A"
