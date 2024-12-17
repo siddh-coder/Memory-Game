@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Memory Game</h1>
+        <p>Player: <strong>{{ username }}</strong></p>
+        <p>Moves: <span id="move-counter">0</span></p>
+        <p>Time: <span id="time-counter">0</span> seconds</p>
+        <p>Best Score: <strong>{{ best_score }}</strong> moves</p>
+        <p>Shortest Time: <strong>{{ shortest_time }}</strong> seconds</p>
+        <div id="game-board" data-grid="{{ grid_size }}" data-username="{{ username }}"></div>
+        <button id="restart-btn" onclick="window.location.reload()">Restart</button>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+

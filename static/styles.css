@@ -1,0 +1,219 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); /* Fallback for browsers that do not support animations */
+    background-size: 200% 200%; /* Ensures the animation smoothly cycles */
+    animation: gradient-animation 15s ease infinite; /* Animation for background gradient */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+h1 {
+    color: #00ff95;
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.game-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 900px;
+}
+
+p {
+    font-size: 1rem;
+    margin: 10px 0;
+}
+
+#game-board {
+    display: grid;
+    gap: 5px; /* Small gap between tiles */
+    margin: 20px auto;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Ensure the grid fits the container */
+}
+
+/* Dynamically adjust grid sizes based on screen resolution */
+#game-board[data-grid="4x4"] {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: calc((90vmin - 40px) / 4); /* Keep tiles square and responsive */
+    max-width: 80vmin; /* Restrict the width to fit within the screen */
+}
+
+#game-board[data-grid="6x6"] {
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: calc((90vmin - 60px) / 6); /* Adjust dynamically for 6x6 grid */
+    max-width: 80vmin; /* Restrict the width to fit within the screen */
+}
+
+/* Card Styling */
+.card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1; /* Ensures tiles are square */
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    backface-visibility: hidden;
+}
+
+.card-front {
+    background: linear-gradient(to bottom right, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-back {
+    background-size: cover;
+    background-position: center;
+    transform: rotateY(180deg);
+}
+
+select {
+    width: 200px;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 2px solid #ff6f61;
+    background-color: #fefefe;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+select:focus {
+    border-color: #ff4b47;
+    box-shadow: 0 0 5px rgba(255, 107, 100, 0.8);
+}
+
+option {
+    font-size: 1rem;
+    color: #333;
+    background-color: #fff;
+}
+
+
+/* Button Styling */
+button {
+    background-color: #ff6f61;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #ff4b47;
+    transform: scale(1.05);
+}
+
+/* Timer and Moves Counter */
+#move-counter, #time-counter {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #ff6f61;
+}
+
+strong {
+    color: #ff4b47;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    #game-board {
+        gap: 5px;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
+}
+
+/* Animation for Background Gradient */
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    25% {
+        background-position: 50% 100%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    75% {
+        background-position: 50% 0%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
